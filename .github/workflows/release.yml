@@ -2,8 +2,8 @@ name: Release
 on:
   push:
     branches:
-      - master # or main
-      - beta # or main
+      - master
+      - next
 
 permissions:
   contents: read # for checkout
