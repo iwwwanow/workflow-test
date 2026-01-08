@@ -61,11 +61,9 @@ jobs:
       - name: Extract tag from semantic-release output
         id: tag_info
         run: |
-          echo "Tag from semantic-release: ${{ needs.release.outputs.new_release_tag }}"
           echo "Version from semantic-release: ${{ needs.release.outputs.new_release_version }}"
           
           # Сохраняем в outputs текущего шага
-          echo "TAG=${{ needs.release.outputs.new_release_tag }}" >> $GITHUB_OUTPUT
           echo "VERSION=${{ needs.release.outputs.new_release_version }}" >> $GITHUB_OUTPUT
       
       - name: Set up Docker Buildx
@@ -84,7 +82,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}:${{ steps.tag_info.outputs.TAG }}
             ghcr.io/${{ github.repository }}:${{ steps.tag_info.outputs.VERSION }}
+            ghcr.io/${{ github.repository }}:latest
           build-args: |
             VERSION=${{ steps.tag_info.outputs.VERSION }}
