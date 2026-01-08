@@ -18,7 +18,7 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for trusted publishing and npm provenance
     outputs:
-      new_release_tag: ${{ steps.semantic_release.outputs.new_release_tag }}
+      new_release_published: ${{ steps.semantic_release.outputs.new_release_published }}
       new_release_version: ${{ steps.semantic_release.outputs.new_release_version }}
     steps:
       - name: Checkout
@@ -52,7 +52,7 @@ jobs:
       contents: read
       packages: write
     # Запускать только если semantic-release создал новый релиз
-    if: needs.release.outputs.new_release_tag != ''
+    if: needs.release.outputs.new_release_published != 'false'
     
     steps:
       - uses: actions/checkout@v4
